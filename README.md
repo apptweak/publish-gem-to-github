@@ -3,6 +3,7 @@ This action builds the gems for all `.gemspec` files in the projects root and up
 
 ## Usage
 Example minimal workflow using this action:
+
 ```yaml
 name: CI
 
@@ -16,21 +17,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and publish gem
-      uses: jstastny/publish-gem-to-github@master
+      uses: apptweak/publish-gems-to-github@v2.4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        owner: jstastny
+        working-directory: frontend-utils
 ```
-
-See example project using this action at [https://github.com/jstastny/testgem](https://github.com/jstastny/testgem).
 
 ## Inputs
 
-| Name                | Description                                                                                     |
-| ------------------- | ----------------------------------------------------------------------------------------------- |
-| `token`             | GitHub token that has write access to Packages. You can use `secrets.GITHUB_TOKEN`              |
-| `owner`             | Name of the user or organization account that owns the repository containing your project       |
-| `working-directory` | Optional parameter of the directory where you wish to build your gemspecs in (defaults to root) |
+| Name                | Required | Description                                                                                     |
+|-------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `token`             | true     | GitHub token that has write access to Packages. You can use `secrets.GITHUB_TOKEN`              |
+| `working-directory` | false    | Optional parameter of the directory where you wish to build your gemspecs in (defaults to root) |
 
 ## Versioning your gem
 
