@@ -5,7 +5,6 @@ cd "${GITHUB_WORKSPACE}" || exit 1
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
 GITHUB_TOKEN=$1
-WORKING_DIRECTORY=$2
 
 [ -z "${GITHUB_TOKEN}" ] && { echo "Missing input.token!"; exit 2; }
 
@@ -15,9 +14,8 @@ touch ~/.gem/credentials
 chmod 600 ~/.gem/credentials
 echo ":github: Bearer ${GITHUB_TOKEN}" >> ~/.gem/credentials
 
-cd "${WORKING_DIRECTORY:-.}"
-
 echo "Building the gem"
-find . -name '*.gemspec' -maxdepth 1 -exec gem build {} \;
+find . -name '*.gemspec' -maxdepth 2 -execdir gem build {} \+
+
 echo "Pushing the built gem to GitHub Package Registry"
-find . -name '*.gem' -maxdepth 1 -print0 | xargs -0 gem push --key github --host "https://rubygems.pkg.github.com/apptweak"
+find . -name '*.gem' -maxdepth 2 -execdir gem push --verbose --key github --host "https://rubygems.pkg.github.com/apptweak" {} \+

@@ -11,7 +11,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,15 +19,15 @@ jobs:
       uses: apptweak/publish-gems-to-github@v2.4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: frontend-utils
 ```
+
+The command `find ... -execdir gem push {}` will fail if any of the built gems has been pushed already.
 
 ## Inputs
 
 | Name                | Required | Description                                                                                     |
 |-------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `token`             | true     | GitHub token that has write access to Packages. You can use `secrets.GITHUB_TOKEN`              |
-| `working-directory` | false    | Optional parameter of the directory where you wish to build your gemspecs in (defaults to root) |
 
 ## Versioning your gem
 

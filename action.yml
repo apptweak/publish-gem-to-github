@@ -8,9 +8,6 @@ inputs:
   token:
     description: 'GitHub token that has access to write to GitHub package registry. You can use GITHUB_TOKEN for this.'
     required: true
-  working-directory:
-    description: 'An optional path to switch to before building the Gem.'
-    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
